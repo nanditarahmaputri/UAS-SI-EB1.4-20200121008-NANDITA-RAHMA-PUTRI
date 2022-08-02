@@ -4,7 +4,6 @@ namespace Illuminate\Mail;
 
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Filesystem\Factory as FilesystemFactory;
-use Illuminate\Contracts\Mail\Attachable;
 use Illuminate\Contracts\Mail\Factory as MailFactory;
 use Illuminate\Contracts\Mail\Mailable as MailableContract;
 use Illuminate\Contracts\Queue\Factory as Queue;
@@ -868,20 +867,12 @@ class Mailable implements MailableContract, Renderable
     /**
      * Attach a file to the message.
      *
-     * @param  string|\Illuminate\Contracts\Mail\Attachable|\Illuminate\Mail\Attachment  $file
+     * @param  string  $file
      * @param  array  $options
      * @return $this
      */
     public function attach($file, array $options = [])
     {
-        if ($file instanceof Attachable) {
-            $file = $file->toMailAttachment();
-        }
-
-        if ($file instanceof Attachment) {
-            return $file->attachTo($this);
-        }
-
         $this->attachments = collect($this->attachments)
                     ->push(compact('file', 'options'))
                     ->unique('file')

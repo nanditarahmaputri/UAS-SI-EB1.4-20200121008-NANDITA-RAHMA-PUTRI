@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,21 +16,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcomepage');
+    return view('welcome');
 });
 
-Route::get('/dashboarddosen', function () {
-    return view('dashboard');
-})->middleware(['dosen'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return view('index');
+})->middleware(['admin'])->name('dashboard');
 
-Route::get('/dashboard', function(){
-    return "afa iyah";
+Route::resource('/mahasiswa', MahasiswaController::class)->middleware(['admin']);
+
+Route::get('/test', function(){
+    return view('tester');
 })->middleware('mahasiswa');
 
-// delete session
-Route::get('/logout', function(){
-    Auth::logout();
-    return redirect('/');
-})->name('logout');
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+                ->middleware('admin')
+                ->name('logout');
+
+
 
 require __DIR__.'/auth.php';

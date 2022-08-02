@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Mahasiswa
 {
@@ -16,9 +17,13 @@ class Mahasiswa
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->user()->role == 'mahasiswa') {
+        //  Auth Cheks for checks to see if the user exists.
+        if (Auth::check() && Auth::user()->role == 'mahasiswa' && $request->input('token') !== 'my-secret-token') {
             return $next($request);
         }
-        return redirect('/');
+
+        abort(403, 'Unauthorized action.');
+        // redirect page 
+        // return redirect('/login');
     }
 }
