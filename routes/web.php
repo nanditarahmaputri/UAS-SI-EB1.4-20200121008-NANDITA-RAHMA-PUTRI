@@ -33,6 +33,10 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('admin')
                 ->name('logout');
 
+// Route::get('/mahasiswa/index', function(){
+//     return view('mahasiswa.index');
+// })->middleware(['admin']);
+
 
 
 require __DIR__.'/auth.php';
