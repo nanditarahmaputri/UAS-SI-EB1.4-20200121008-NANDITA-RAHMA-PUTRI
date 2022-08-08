@@ -15,7 +15,7 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $mhs = Mahasiswa::orderBy('updated_at', 'desc')->paginate(5);
+        $mhs = Mahasiswa::orderBy('updated_at', 'desc')->paginate(10);
         return view('Mahasiswa.index', ['mahasiswa' => $mhs]);
     }
 
@@ -26,7 +26,7 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        // return view('Mahasiswa.create');
+        return view('Mahasiswa.create');
     }
 
     /**
@@ -91,8 +91,8 @@ class MahasiswaController extends Controller
      */
     public function edit($id)
     {
-        $mahasiswa = Mahasiswa::findOrFail($id);
-        return view('Mahasiswa.edit', ['mahasiswa' => $mahasiswa]);
+        $data_mahasiswa = Mahasiswa::findOrFail($id);
+        return view('Mahasiswa.edit', ['mahasiswa' => $data_mahasiswa]);
     }
 
     /**

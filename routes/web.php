@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\AbsenController;
+use App\Http\Controllers\MatakuliahController;
+use App\Http\Controllers\kontrak_matakuliahController;
+use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
@@ -23,11 +28,16 @@ Route::get('/dashboard', function () {
     return view('index');
 })->middleware(['admin'])->name('dashboard');
 
-Route::resource('/mahasiswa', MahasiswaController::class)->middleware(['admin']);
 
-Route::get('/test', function(){
-    return view('tester');
-})->middleware('mahasiswa');
+
+Route::resources([
+    'mahasiswa' => MahasiswaController::class,
+    'matakuliah' => MatakuliahController::class,
+    'absen' => AbsenController::class,
+    'jadwal' => JadwalController::class,
+    'kontrakmatakuliah' => kontrak_matakuliahController::class,
+    'semester' => SemesterController::class,
+]);
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('admin')

@@ -66,10 +66,37 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="/absen">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                    <span>Absen</span></a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/matakuliah">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Mata Kuliah</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/kontrakmatakuliah">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Kontrak Mata Kuliah</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/jadwal">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Jadwal</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/semester">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Semester</span></a>
+            </li>
+
+
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
