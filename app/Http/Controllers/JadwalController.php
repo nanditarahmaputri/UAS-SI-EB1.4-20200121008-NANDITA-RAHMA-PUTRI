@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jadwal;
-use App\Models\Matakuliah;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -16,7 +15,7 @@ class JadwalController extends Controller
      */
     public function index()
     {
-        $matakuliah = Matakuliah::all('id', 'nama_matakuliah');
+        $jadwal = Jadwal::all('id', 'jadwal');
         $jadwal = Jadwal::orderBy('updated_at', 'desc')->paginate(10);
         return view('Jadwal.index', ['jadwal' => $jadwal]);
     }
