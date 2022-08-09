@@ -19,13 +19,6 @@
                     <td>{{ $data_mahasiswa->mahasiswa_id }}</td>
                     <td>{{ $data_mahasiswa->matakuliah_id }}</td>
                     <td>{{ $data_mahasiswa->ket }}</td>
-                    <td>
-                        <form action="/absen/{{ $absen['id'] }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button class="card-link btn btn-danger">Delete</button>
-                        </form>
-                    </td>
                 </tr>
             @endforeach
         </tbody>

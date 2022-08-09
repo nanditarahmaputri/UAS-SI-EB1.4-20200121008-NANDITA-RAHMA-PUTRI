@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Matakuliah;
+use App\models\Jadwal;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class MatakuliahController extends Controller
+class JadwalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,18 +15,13 @@ class MatakuliahController extends Controller
      */
     public function index()
     {
-        $mahasiswa = Matakuliah::orderBy('updated_at', 'desc')->paginate(10);
-        return view('Matakuliah.index', ['matakuliah' => $mahasiswa]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $jadwal = Jadwal::all('id', 'jadwal');
+        $jadwal = Jadwal::orderBy('updated_at', 'desc')->paginate(10);
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Mahasiswa',
+            'data' => $jadwal,
+        ], 200);
     }
 
     /**
@@ -47,17 +42,6 @@ class MatakuliahController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }

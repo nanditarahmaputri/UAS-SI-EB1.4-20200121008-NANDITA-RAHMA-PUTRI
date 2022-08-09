@@ -15,8 +15,8 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $mhs = Mahasiswa::orderBy('updated_at', 'desc')->paginate(10);
-        return view('Mahasiswa.index', ['mahasiswa' => $mhs]);
+        $mahasiswa = Mahasiswa::orderBy('updated_at', 'desc')->paginate(10);
+        return view('Mahasiswa.index', ['mahasiswa' => $mahasiswa]);
     }
 
     /**
@@ -37,39 +37,28 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        // Generate NIM
-        $mahasiswas = Mahasiswa::all();
-        if ($mahasiswas->count() > 0) {
-            $last = $mahasiswas->last();
-            $nim = $last->nim + 1;
-        } else {
-            $nim = 20200121001;
-        }
-
         // Validate Data Mahasiswa
         $request->validate([
-            'nama_mhs' => 'required|unique:mahasiswas|max:100|min:3',
+            'nama_mahasiswa' => 'required|unique:mahasiswas|max:100|min:3',
+            'alamat' => 'required',
+            'no_tlp' => 'integer|required|max:100',
             'email' => 'required|unique:mahasiswas|max:100|min:3',
-            'umur' => 'integer|required|max:100',
-            'alamat' => 'required'
         ]);
-
         //  Insert Data Mahasiswa
         try {
-            $mhs = new Mahasiswa;
-            $mhs->nim = $nim;
-            $mhs->nama_mhs = $request->nama_mhs;
-            $mhs->email = $request->email;
-            $mhs->umur = $request->umur;
-            $mhs->alamat = $request->alamat;
-            $mhs->save();
+            $mahasiswa = new Mahasiswa;
+            $mahasiswa->nama_mahasiwa = $request->nama_mahasiswa;
+            $mahasiswa->alamat = $request->alamat;
+            $mahasiswa->no_tlp = $request->no_tlp;
+            $mahasiswa->email = $request->email;
+            $mahasiswa->save();
         } catch (\Throwable $th) {
             // return error
             return redirect('/mahasiswa')->with('error', $th->getMessage());
         }
       
         //    Redirect to Index
-        return redirect('/mahasiswa')->with('success', 'Data Mahasiswa ' . $request->nama_mhs . ' Berhasil Ditambahkan');
+        return redirect('/mahasiswa')->with('success', 'Data Mahasiswa ' . $request->nama_mahasiswa . ' Berhasil Ditambahkan');
     }
 
     /**
@@ -106,27 +95,27 @@ class MahasiswaController extends Controller
     {
         // Validate Data Mahasiswa
         $request->validate([
-            'nama_mhs' => 'required|max:100|min:3',
-            'email' => 'required|max:100|min:3',
-            'umur' => 'integer|required|max:100',
-            'alamat' => 'required'
+            'nama_mahasiswa' => 'required|unique:mahasiswas|max:100|min:3',
+            'alamat' => 'required',
+            'no_tlp' => 'integer|required|max:100',
+            'email' => 'required|unique:mahasiswas|max:100|min:3',
         ]);
 
         // Update Data Mahasiswa
         try {
-            $mhs = Mahasiswa::findOrFail($id);
-            $mhs->nama_mhs = $request->nama_mhs;
-            $mhs->email = $request->email;
-            $mhs->umur = $request->umur;
-            $mhs->alamat = $request->alamat;
-            $mhs->save();
+            $mahasiswa = new Mahasiswa;
+            $mahasiswa->nama_mahasiwa = $request->nama_mahasiswa;
+            $mahasiswa->alamat = $request->alamat;
+            $mahasiswa->no_tlp = $request->no_tlp;
+            $mahasiswa->email = $request->email;
+            $mahasiswa->save();
         } catch (\Throwable $th) {
             // return error
             return redirect('/mahasiswa/edit/'.$request->id)->with('error', $th->getMessage());
         }
       
         //    Redirect to Index
-        return redirect('/mahasiswa')->with('success', 'Data Mahasiswa ' . $request->nama_mhs . ' Berhasil Diubah');
+        return redirect('/mahasiswa')->with('success', 'Data Mahasiswa ' . $request->nama_mahasiswa . ' Berhasil Diubah');
     }
 
     /**
@@ -147,6 +136,6 @@ class MahasiswaController extends Controller
         }
       
         //    Redirect to Index
-        return redirect('/mahasiswa')->with('success', 'Data Mahasiswa ' . $mhs->nama_mhs . ' Berhasil Dihapus');
+        return redirect('/mahasiswa')->with('success', 'Data Mahasiswa ' . $mahasiswa->nama_mahasiswa . ' Berhasil Dihapus');
     }
 }

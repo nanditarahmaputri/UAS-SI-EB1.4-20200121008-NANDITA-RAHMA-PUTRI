@@ -15,8 +15,8 @@ class AbsenController extends Controller
      */
     public function index()
     {
-        $mhs = Absen::orderBy('updated_at', 'desc')->paginate(10);
-        return view('Absen.index', ['absen' => $mhs]);
+        $absen = Absen::orderBy('updated_at', 'desc')->paginate(10);
+        return view('Absen.index', ['absen' => $absen]);
     }
 
     /**
